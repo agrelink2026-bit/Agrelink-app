@@ -1,18 +1,60 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
-<title>Agrelink — منصة الفلاح الرقمي</title>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-<script src=<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-  import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-  import { getFirestore } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0" />
+  <title>Agrelink - منصة الفلاح الرقمي</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
-  // إعدادات مشروع Agrelink الخاصة بكِ
-  const firebaseConfig = {
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+    import { getFirestore } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBlAi2ON_p9ooxVNTM--Sxvf_Yy34Eg3nE",
+      authDomain: "agrelink-aa9d6.firebaseapp.com",
+      projectId: "agrelink-aa9d6",
+      storageBucket: "agrelink-aa9d6.firebasestorage.app",
+      messagingSenderId: "1025224871987",
+      appId: "1:1025224871987:web:98a1e324f328d323f85346"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    window.handleLogin = function() {
+      const email = document.getElementById('adminEmail').value;
+      const pass = document.getElementById('adminPass').value;
+      const errorText = document.getElementById('loginError');
+      
+      errorText.innerText = "جاري التحقق من الهوية...";
+      
+      signInWithEmailAndPassword(auth, email, pass)
+        .then(() => {
+          document.getElementById('loginModal').style.display = 'none';
+          window.location.reload(); 
+        })
+        .catch((error) => {
+          errorText.innerText = "خطأ! البريد الإلكتروني أو كلمة المرور غير صحيحة.";
+        });
+    };
+
+    onAuthStateChanged(auth, (user) => {
+      const modal = document.getElementById('loginModal');
+      if (!modal) return;
+      if (!user) {
+        modal.style.display = 'flex'; 
+      } else {
+        modal.style.display = 'none';
+        console.log("تم تفعيل وضع الإدارة الآمن بنجاح.");
+      }
+    });
+  </script>
     apiKey: "AIzaSyBlAi2ON_p9ooxVNTM--Sxvf_Yy34Eg3nE",
     authDomain: "agrelink-aa9d6.firebaseapp.com",
     projectId: "agrelink-aa9d6",
