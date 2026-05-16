@@ -2139,10 +2139,11 @@ function chatSendMessage(inputId, msgsId, chatKey, senderId, onAfterSend){
 }
   </script> 
   <head> 
-    <script type="module">
+      <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-  import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+  import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
+  // إعدادات مشروع Agrelink
   const firebaseConfig = {
     apiKey: "AIzaSyBlAi2ON_p9ooxVNTM--Sxvf_Yy34Eg3nE",
     authDomain: "agrelink-aa9d6.firebaseapp.com",
@@ -2155,45 +2156,20 @@ function chatSendMessage(inputId, msgsId, chatKey, senderId, onAfterSend){
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
 
-  // إرسال إشارة فورية بمجرد تشغيل الكود
-  addDoc(collection(db, "connection_status"), {
-    message: "تم الربط من أعلى الملف!",
-    time: new Date().toISOString()
-  }).then(() => console.log("Success!")).catch(e => console.log(e));
-</script>
-  <script type="module">
-  // استيراد المكتبات اللازمة
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-  import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-  // إعدادات مشروعكِ التي ظهرت في الصورة
-  const firebaseConfig = {
-    apiKey: "AIzaSyBlAi2ON_p9ooxVNTM--Sxvf_Yy34Eg3nE",
-    authDomain: "agrelink-aa9d6.firebaseapp.com",
-    projectId: "agrelink-aa9d6",
-    storageBucket: "agrelink-aa9d6.firebasestorage.app",
-    messagingSenderId: "1025224871987",
-    appId: "1:1025224871987:web:98a1e324f328d323f85346"
-  };
-
-  // تشغيل Firebase
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-
-  // وظيفة تلقائية للتأكد من أن القاعدة تعمل
-  async function connectPartner() {
+  // دالة عالمية لإضافة فلاح جديد (سنستخدمها لاحقاً في الأزرار)
+  window.addNewFarmer = async function(farmerData) {
     try {
-      await addDoc(collection(db, "connection_status"), {
-        message: "تم الربط بنجاح يا شريكي!",
-        time: new Date().toLocaleString()
+      const docRef = await addDoc(collection(db, "farmers"), {
+        ...farmerData,
+        createdAt: serverTimestamp()
       });
-      console.log("الربط يعمل 100%!");
+      alert("تم حفظ بيانات الفلاح بنجاح!");
+      return docRef.id;
     } catch (e) {
-      console.error("خطأ بسيط في الربط: ", e);
+      console.error("خطأ في الحفظ: ", e);
+      alert("عذراً، فشل الحفظ.");
     }
-  }
-
-  connectPartner();
+  };
 </script>
 </body>
 </html>
