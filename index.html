@@ -6,7 +6,54 @@
 <title>Agrelink — منصة الفلاح الرقمي</title>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src=<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+  import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+  import { getFirestore } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+  // إعدادات مشروع Agrelink الخاصة بكِ
+  const firebaseConfig = {
+    apiKey: "AIzaSyBlAi2ON_p9ooxVNTM--Sxvf_Yy34Eg3nE",
+    authDomain: "agrelink-aa9d6.firebaseapp.com",
+    projectId: "agrelink-aa9d6",
+    storageBucket: "agrelink-aa9d6.firebasestorage.app",
+    messagingSenderId: "1025224871987",
+    appId: "1:1025224871987:web:98a1e324f328d323f85346"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  // دالة تشغيل زر تسجيل الدخول للتحقق من الحساب
+  window.handleLogin = function() {
+    const email = document.getElementById('adminEmail').value;
+    const pass = document.getElementById('adminPass').value;
+    const errorText = document.getElementById('loginError');
+    
+    errorText.innerText = "جاري التحقق من الهوية...";
+    
+    signInWithEmailAndPassword(auth, email, pass)
+      .then(() => {
+        document.getElementById('loginModal').style.display = 'none';
+      })
+      .catch((error) => {
+        errorText.innerText = "خطأ! البريد الإلكتروني أو كلمة المرور غير صحيحة.";
+      });
+  };
+
+  // حارس البوابة: فحص حالة الأدمين بشكل تلقائي فور فتح الموقع
+  onAuthStateChanged(auth, (user) => {
+    const modal = document.getElementById('loginModal');
+    if (!user) {
+      modal.style.display = 'flex'; // إظهار نافذة القفل إذا لم يتم تسجيل الدخول
+    } else {
+      modal.style.display = 'none'; // إخفاء النافذة فوراً إذا كانت البيانات صحيحة
+      console.log("تم تفعيل وضع الإدارة الآمن بنجاح.");
+    }
+  });
+</script>"https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 :root{--g:#3a8c3f;--gd:#1e5c22;--gl:#6bbf4e;--b:#1a6fa8;--bd:#0d4a75;--bl:#3aa0d8;--bg:#f4f8f2;--text:#1a2e1a;--tl:#5a7a5a;--or:#e67e22;--gol:#f0a500;--red:#e74c3c;}
