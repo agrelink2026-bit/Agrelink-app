@@ -1,101 +1,12 @@
  <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0" />
-  <title>Agrelink - منصة الفلاح الرقمي</title>
-  
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-    import { getFirestore } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyBlAi2ON_p9ooxVNTM--Sxvf_Yy34Eg3nE",
-      authDomain: "agrelink-aa9d6.firebaseapp.com",
-      projectId: "agrelink-aa9d6",
-      storageBucket: "agrelink-aa9d6.firebasestorage.app",
-      messagingSenderId: "1025224871987",
-      appId: "1:1025224871987:web:98a1e324f328d323f85346"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
-
-    window.handleLogin = function() {
-      const email = document.getElementById('adminEmail').value;
-      const pass = document.getElementById('adminPass').value;
-      const errorText = document.getElementById('loginError');
-      
-      errorText.innerText = "جاري التحقق من الهوية...";
-      
-      signInWithEmailAndPassword(auth, email, pass)
-        .then(() => {
-          document.getElementById('loginModal').style.display = 'none';
-          window.location.reload(); 
-        })
-        .catch((error) => {
-          errorText.innerText = "خطأ! البريد الإلكتروني أو كلمة المرور غير صحيحة.";
-        });
-    };
-
-    onAuthStateChanged(auth, (user) => {
-      const modal = document.getElementById('loginModal');
-      if (!modal) return;
-      if (!user) {
-        modal.style.display = 'flex'; 
-      } else {
-        modal.style.display = 'none';
-        console.log("تم تفعيل وضع الإدارة الآمن بنجاح.");
-      }
-    });
-  </script>
-    apiKey: "AIzaSyBlAi2ON_p9ooxVNTM--Sxvf_Yy34Eg3nE",
-    authDomain: "agrelink-aa9d6.firebaseapp.com",
-    projectId: "agrelink-aa9d6",
-    storageBucket: "agrelink-aa9d6.firebasestorage.app",
-    messagingSenderId: "1025224871987",
-    appId: "1:1025224871987:web:98a1e324f328d323f85346"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const db = getFirestore(app);
-
-  // دالة تشغيل زر تسجيل الدخول للتحقق من الحساب
-  window.handleLogin = function() {
-    const email = document.getElementById('adminEmail').value;
-    const pass = document.getElementById('adminPass').value;
-    const errorText = document.getElementById('loginError');
-    
-    errorText.innerText = "جاري التحقق من الهوية...";
-    
-    signInWithEmailAndPassword(auth, email, pass)
-      .then(() => {
-        document.getElementById('loginModal').style.display = 'none';
-      })
-      .catch((error) => {
-        errorText.innerText = "خطأ! البريد الإلكتروني أو كلمة المرور غير صحيحة.";
-      });
-  };
-
-  // حارس البوابة: فحص حالة الأدمين بشكل تلقائي فور فتح الموقع
-  onAuthStateChanged(auth, (user) => {
-    const modal = document.getElementById('loginModal');
-    if (!user) {
-      modal.style.display = 'flex'; // إظهار نافذة القفل إذا لم يتم تسجيل الدخول
-    } else {
-      modal.style.display = 'none'; // إخفاء النافذة فوراً إذا كانت البيانات صحيحة
-      console.log("تم تفعيل وضع الإدارة الآمن بنجاح.");
-    }
-  });
-</script>"https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
+<title>Agrelink — منصة الفلاح الرقمي</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 :root{--g:#3a8c3f;--gd:#1e5c22;--gl:#6bbf4e;--b:#1a6fa8;--bd:#0d4a75;--bl:#3aa0d8;--bg:#f4f8f2;--text:#1a2e1a;--tl:#5a7a5a;--or:#e67e22;--gol:#f0a500;--red:#e74c3c;}
@@ -241,9 +152,8 @@ body{font-family:'Cairo',sans-serif;background:var(--bg);direction:rtl;min-heigh
 .card,.ad-card,.vet-card{will-change:transform;contain:content;}
 .vet-card{background:#fff;border-radius:15px;padding:14px 15px;margin-bottom:10px;box-shadow:0 2px 10px rgba(0,0,0,.04);border:1.5px solid rgba(123,45,139,.2);}
 </style>
-   <script type="module"> 
-</head> 
-<body
+</head>
+<body>
 <div class="app" id="app"></div>
 <script>
 // ============================================================
@@ -2229,11 +2139,10 @@ function chatSendMessage(inputId, msgsId, chatKey, senderId, onAfterSend){
 }
   </script> 
   <head> 
-      <script type="module">
+    <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-  import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+  import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-  // إعدادات مشروع Agrelink
   const firebaseConfig = {
     apiKey: "AIzaSyBlAi2ON_p9ooxVNTM--Sxvf_Yy34Eg3nE",
     authDomain: "agrelink-aa9d6.firebaseapp.com",
@@ -2246,20 +2155,45 @@ function chatSendMessage(inputId, msgsId, chatKey, senderId, onAfterSend){
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
 
-  // دالة عالمية لإضافة فلاح جديد (سنستخدمها لاحقاً في الأزرار)
-  window.addNewFarmer = async function(farmerData) {
-    try {
-      const docRef = await addDoc(collection(db, "farmers"), {
-        ...farmerData,
-        createdAt: serverTimestamp()
-      });
-      alert("تم حفظ بيانات الفلاح بنجاح!");
-      return docRef.id;
-    } catch (e) {
-      console.error("خطأ في الحفظ: ", e);
-      alert("عذراً، فشل الحفظ.");
-    }
+  // إرسال إشارة فورية بمجرد تشغيل الكود
+  addDoc(collection(db, "connection_status"), {
+    message: "تم الربط من أعلى الملف!",
+    time: new Date().toISOString()
+  }).then(() => console.log("Success!")).catch(e => console.log(e));
+</script>
+  <script type="module">
+  // استيراد المكتبات اللازمة
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+  import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+  // إعدادات مشروعكِ التي ظهرت في الصورة
+  const firebaseConfig = {
+    apiKey: "AIzaSyBlAi2ON_p9ooxVNTM--Sxvf_Yy34Eg3nE",
+    authDomain: "agrelink-aa9d6.firebaseapp.com",
+    projectId: "agrelink-aa9d6",
+    storageBucket: "agrelink-aa9d6.firebasestorage.app",
+    messagingSenderId: "1025224871987",
+    appId: "1:1025224871987:web:98a1e324f328d323f85346"
   };
+
+  // تشغيل Firebase
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  // وظيفة تلقائية للتأكد من أن القاعدة تعمل
+  async function connectPartner() {
+    try {
+      await addDoc(collection(db, "connection_status"), {
+        message: "تم الربط بنجاح يا شريكي!",
+        time: new Date().toLocaleString()
+      });
+      console.log("الربط يعمل 100%!");
+    } catch (e) {
+      console.error("خطأ بسيط في الربط: ", e);
+    }
+  }
+
+  connectPartner();
 </script>
 </body>
 </html>
