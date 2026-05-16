@@ -199,8 +199,7 @@ body{font-family:'Cairo',sans-serif;background:var(--bg);direction:rtl;min-heigh
 .card,.ad-card,.vet-card{will-change:transform;contain:content;}
 .vet-card{background:#fff;border-radius:15px;padding:14px 15px;margin-bottom:10px;box-shadow:0 2px 10px rgba(0,0,0,.04);border:1.5px solid rgba(123,45,139,.2);}
 </style>
-</head>
- <script type="module">
+  <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
   import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
   import { getFirestore } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
@@ -246,8 +245,24 @@ body{font-family:'Cairo',sans-serif;background:var(--bg);direction:rtl;min-heigh
       console.log("مرحباً بكِ في لوحة التحكم الآمنة.");
     }
   });
-</script> 
-<body>
+</script>
+</head> 
+<body
+  <div id="loginModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(15, 23, 42, 0.98); z-index:999999; justify-content:center; align-items:center; font-family:sans-serif; direction:rtl;">
+  <div style="background:#ffffff; padding:40px 30px; border-radius:20px; width:340px; text-align:center; box-shadow: 0 10px 25px rgba(0,0,0,0.3); border: 1px solid #e2e8f0;">
+    <div style="background:#e8f5e9; width:60px; height:60px; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 20px;">
+      <span style="font-size:28px;">🔐</span>
+    </div>
+    <h3 style="margin:0 0 10px 0; color:#1e293b; font-size:20px; font-weight:700;">منصة Agrelink المحمية</h3>
+    <p style="margin:0 0 25px 0; color:#64748b; font-size:14px;">يرجى تسجيل الدخول للوصول إلى لوحة الإدارة</p>
+    
+    <input type="email" id="adminEmail" placeholder="البريد الإلكتروني للأدمين" style="width:100%; padding:14px; margin-bottom:14px; border:1px solid #cbd5e1; border-radius:10px; box-sizing: border-box; text-align:center; font-size:14px; outline:none;">
+    <input type="password" id="adminPass" placeholder="كلمة المرور السرية" style="width:100%; padding:14px; margin-bottom:25px; border:1px solid #cbd5e1; border-radius:10px; box-sizing: border-box; text-align:center; font-size:14px; outline:none;">
+    
+    <button onclick="handleLogin()" style="background:#2e7d32; color:#ffffff; border:none; padding:14px; border-radius:10px; cursor:pointer; width:100%; font-size:16px; font-weight:700;">تأكيد الهوية والدخول</button>
+    <p id="loginError" style="color:#ef4444; font-size:13px; margin:15px 0 0 0; font-weight:600;"></p>
+  </div>
+</div>
 <div class="app" id="app"></div>
 <script>
 // ============================================================
